@@ -9,15 +9,6 @@ Because the cloud is someone else's computer and AI usage credits aren't cheap. 
 
 Get a local open source inference server to serve an LLM model to support local agents like Hermes and OpenCode.
 
-### Environment Setup
-
-**OS**: Windows 11 with WSL Ubuntu 22.04
-
-**CUDA environment**: [CUDA WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
-
-- Worked around environment paths/variable issues in WSL
-- Downgraded CUDA 13 to 12.8 because I wanted to try vLLM inference server first, read somewhere it has good performance but required CUDA 12.8 at the time.
-
 ### Key Concepts for Local LLMs
 
 <details>
@@ -114,6 +105,15 @@ Get a local open source inference server to serve an LLM model to support local 
 - Quantized KV cache (Q8_0) saves memory while maintaining quality
 - Checkpoint caching can prevent re-processing same prompts
 </details>
+
+### Environment Setup
+
+**OS**: Windows 11 with WSL Ubuntu 22.04
+
+**CUDA environment**: [CUDA WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
+
+- Worked around environment paths/variable issues in WSL
+- Downgraded CUDA 13 to 12.8 because I wanted to try vLLM inference server first, read somewhere it has good performance but required CUDA 12.8 at the time.
 
 ### Inference Servers
 
