@@ -5,10 +5,6 @@
 
 Because the cloud is someone else's computer and AI usage credits aren't cheap. Let's see what I can do with a 10GB Nvidia card other than play games.
 
-## How
-
-Get a local open source inference server to serve an LLM model to support local agents like Hermes and OpenCode.
-
 ### Key Concepts for Local LLMs
 
 <details>
@@ -105,6 +101,10 @@ Get a local open source inference server to serve an LLM model to support local 
 - Quantized KV cache (Q8_0) saves memory while maintaining quality
 - Checkpoint caching can prevent re-processing same prompts
 </details>
+
+## How
+
+Get a local open source inference server to serve an LLM model to support local agents like Hermes and OpenCode.
 
 ### Environment Setup
 
