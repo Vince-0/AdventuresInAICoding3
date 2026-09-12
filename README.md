@@ -18,72 +18,6 @@ Get a local open source inference server to serve an LLM model to support local 
 - Worked around environment paths/variable issues in WSL
 - Downgraded CUDA 13 to 12.8 because I wanted to try vLLM inference server first, read somewhere it has good performance but required CUDA 12.8 at the time.
 
-### Inference Servers
-
-#### vLLM
-
-**Build and work around some build issues**: [vLLM Build Guide](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/#build-wheel-from-source)
-
-**[vLLM on Ubuntu Tutorial](https://oneuptime.com/blog/post/2026-03-02-how-to-install-and-configure-vllm-on-ubuntu/view)**
-
-Run command:
-
-```bash
-python3 -m vllm.entrypoints.openai.api_server \
-  --model /home/administrator/LLM/models/llama-3.1-8b-instruct-q4_k_m.gguf \
-  --host 0.0.0.0 --port 8000 \
-  --served-model-name "local" \
-  --gpu-memory-utilization 0.8 \
-  --max-model-len auto \
-  --enable-auto-tool-choice --tool-call-parser hermes
-```
-
-**Result**: Once running with a model I connected Hermes to it to see what it would do but it seemed to just be talking in gibberish loops.
-
-Some weeks passed and I had to give it another go after reading about new fancy tech like:
-
-- **Vibe Jam 2026** [Cursor Vibe Jam 2026](https://vibej.am/2026/)
-- **getagentcraft.com**: Watch your agents come alive in an RTS game interface!
-- **MTP**: speculative decoding [llama.cpp PR #22673](https://github.com/ggml-org/llama.cpp/pull/22673)
-- **MoE Mixture of Expert weights in CPU**: [HuggingFace](https://x.com/HuggingModels/status/2052875956600307794)
-
----
-
-## llama.cpp
-
-### Build
-
-Build [llama.cpp](https://github.com/ggml-org/llama.cpp)
-
-### Model Selection
-
-- Sign up on Huggingface.com to find models that actually fit in my card while I'm running Windows.
-- Get huggingface-cli/hcli working in WSL environment.
-
----
-
-## Models
-
-| Model | Quantization |
-|-------|--------------|
-| Llama-3-8B-Instruct-Gradient-1048k | Q6_K |
-| Qwen3.5-9b-Sushi-Coder-RL | Q6_K |
-| Qwen3-4B-Qwen3.6-plus-Reasoning-Slerp | Q8_0 |
-| Qwen3-Desert.Coder.MoE-8X0.6B.i1 | Q6_K |
-| Qwen3VL-8B-Instruct | Q4_K_M |
-| Qwen3.5-4B-MTP | Q4_K_M |
-| Tralalabs_Qwen3-2507-4B-Instruct-Haiku-4.5-Merged | Q6_K |
-| Qwen3.5-4B-Q4_K_M | Q4_K_M |
-| codellama-7b-instruct | Q5_K_M |
-| Qwen3.5-9B-DeepSeek-V4-Flash | Q4_K_M |
-| google_gemma-4-E4B-it | Q4_K_M |
-| Qwen3.5-9B | Q4_K_M |
-| llama-3.1-8b-instruct-q4_k_m | Q4_K_M |
-| Qwen3.5-9b-Sushi-Coder-RL.BF16-mmproj | BF16 |
-| llama-3.2-3b-instruct-q4_k_m | Q4_K_M |
-| Qwen3.5-9b-Sushi-Coder-RL.Q4_K_M | Q4_K_M |
-| mistral-ft-optimized-1218 | Q6_K |
-
 ### Key Concepts for Local LLMs
 
 <details>
@@ -180,6 +114,72 @@ Build [llama.cpp](https://github.com/ggml-org/llama.cpp)
 - Quantized KV cache (Q8_0) saves memory while maintaining quality
 - Checkpoint caching can prevent re-processing same prompts
 </details>
+
+### Inference Servers
+
+#### vLLM
+
+**Build and work around some build issues**: [vLLM Build Guide](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/#build-wheel-from-source)
+
+**[vLLM on Ubuntu Tutorial](https://oneuptime.com/blog/post/2026-03-02-how-to-install-and-configure-vllm-on-ubuntu/view)**
+
+Run command:
+
+```bash
+python3 -m vllm.entrypoints.openai.api_server \
+  --model /home/administrator/LLM/models/llama-3.1-8b-instruct-q4_k_m.gguf \
+  --host 0.0.0.0 --port 8000 \
+  --served-model-name "local" \
+  --gpu-memory-utilization 0.8 \
+  --max-model-len auto \
+  --enable-auto-tool-choice --tool-call-parser hermes
+```
+
+**Result**: Once running with a model I connected Hermes to it to see what it would do but it seemed to just be talking in gibberish loops.
+
+Some weeks passed and I had to give it another go after reading about new fancy tech like:
+
+- **Vibe Jam 2026** [Cursor Vibe Jam 2026](https://vibej.am/2026/)
+- **getagentcraft.com**: Watch your agents come alive in an RTS game interface!
+- **MTP**: speculative decoding [llama.cpp PR #22673](https://github.com/ggml-org/llama.cpp/pull/22673)
+- **MoE Mixture of Expert weights in CPU**: [HuggingFace](https://x.com/HuggingModels/status/2052875956600307794)
+
+---
+
+## llama.cpp
+
+### Build
+
+Build [llama.cpp](https://github.com/ggml-org/llama.cpp)
+
+### Model Selection
+
+- Sign up on Huggingface.com to find models that actually fit in my card while I'm running Windows.
+- Get huggingface-cli/hcli working in WSL environment.
+
+---
+
+## Models
+
+| Model | Quantization |
+|-------|--------------|
+| Llama-3-8B-Instruct-Gradient-1048k | Q6_K |
+| Qwen3.5-9b-Sushi-Coder-RL | Q6_K |
+| Qwen3-4B-Qwen3.6-plus-Reasoning-Slerp | Q8_0 |
+| Qwen3-Desert.Coder.MoE-8X0.6B.i1 | Q6_K |
+| Qwen3VL-8B-Instruct | Q4_K_M |
+| Qwen3.5-4B-MTP | Q4_K_M |
+| Tralalabs_Qwen3-2507-4B-Instruct-Haiku-4.5-Merged | Q6_K |
+| Qwen3.5-4B-Q4_K_M | Q4_K_M |
+| codellama-7b-instruct | Q5_K_M |
+| Qwen3.5-9B-DeepSeek-V4-Flash | Q4_K_M |
+| google_gemma-4-E4B-it | Q4_K_M |
+| Qwen3.5-9B | Q4_K_M |
+| llama-3.1-8b-instruct-q4_k_m | Q4_K_M |
+| Qwen3.5-9b-Sushi-Coder-RL.BF16-mmproj | BF16 |
+| llama-3.2-3b-instruct-q4_k_m | Q4_K_M |
+| Qwen3.5-9b-Sushi-Coder-RL.Q4_K_M | Q4_K_M |
+| mistral-ft-optimized-1218 | Q6_K |
 
 
 ### Model Filename Breakdown
